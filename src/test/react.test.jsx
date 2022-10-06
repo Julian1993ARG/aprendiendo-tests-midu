@@ -1,36 +1,11 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { useState } from 'react'
+import { Calculadora } from '../Calculadora'
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 const operatios = ['-', '+', '/', '*']
-const rows = [
-  [7, 8, 9],
-  [6, 5, 4],
-  [3, 2, 1],
-  [0]
-]
 
-const Calculadora = () => {
-  const [value, setValue] = useState('')
-  return (
-    <>
-      <h1>Calculadora</h1>
-      <div role='grid'>
-        <input role='output' value={value} readOnly />
-        {
-          rows.map((row, inx) => (
-            <div key={inx} role='row'>
-              {row.map(number => (<button onClick={() => setValue(number)} key={number}>{number}</button>))}
-            </div>
-          ))
-        }
-        {operatios.map((operation, i) => <span key={i}>{operation}</span>)}
-      </div>
-      <span>=</span>
-    </>
-  )
-}
+const equalSign = '='
 
 describe('Calculadora', () => {
   afterEach(cleanup)// Cleanup cierra el render despues de cada test sino generaria una cola de renders
@@ -58,16 +33,106 @@ describe('Calculadora', () => {
     render(<Calculadora />)
     screen.getByText('=')
   })
+  it('Debe renderizar el boton C ', () => {
+    render(<Calculadora />)
+    screen.getByText('C')
+  })
   it('Deberia renderizar un imput', () => {
     render(<Calculadora />)
     screen.getByRole('output')
   })
-  it('Deberia el input tener el value 1 cuando este se presione', () => {
+  it('Deberia el output tener el value 1 cuando este se presione', () => {
     render(<Calculadora />)
 
     const one = screen.getByText('1')
     fireEvent.click(one)
     const input = screen.getByRole('output')
     expect(input.value).toBe('1')
+  })
+  it('Deberia el output tener el value de todos los numeros que se presionen', () => {
+    render(<Calculadora />)
+
+    const one = screen.getByText('1')
+    fireEvent.click(one)
+    const two = screen.getByText('2')
+    fireEvent.click(two)
+    const three = screen.getByText('3')
+    fireEvent.click(three)
+
+    const input = screen.getByRole('output')
+    expect(input.value).toBe('123')
+  })
+  it('Deberia el output renderizar los simbolos', () => {
+    render(<Calculadora />)
+
+    const one = screen.getByText('1')
+    fireEvent.click(one)
+    const sum = screen.getByText('+')
+    fireEvent.click(sum)
+    fireEvent.click(one)
+    const input = screen.getByRole('output')
+    expect(input.value).toBe('1+1')
+  })
+  it('Deberia borrar el output al presionar C', () => {
+    render(<Calculadora />)
+    const setOutput = screen.getByText('C')
+    const one = screen.getByText('1')
+    const input = screen.getByRole('output')
+    fireEvent.click(one)
+    fireEvent.click(setOutput)
+    expect(input.value).toBe('')
+  })
+  it('Deberia devolver el resultado de la operacion', () => {
+    render(<Calculadora />)
+
+    const one = screen.getByText('1')
+    fireEvent.click(one)
+    const sum = screen.getByText('+')
+    fireEvent.click(sum)
+    fireEvent.click(one)// 1 + 1
+    const equal = screen.getByText(equalSign)
+    fireEvent.click(equal)
+    const input = screen.getByRole('output')
+    expect(input.value).toBe('2')
+  })
+})
+
+describe('Test nivel medio', () => {
+  afterEach(cleanup)
+  it('No deberia permitir colocar un signo sino existe un numero', () => {
+    render(<Calculadora />)
+
+    const one = screen.getByText('1')
+    const sum = screen.getByText('+')
+    fireEvent.click(sum)
+    fireEvent.click(one)
+    const input = screen.getByRole('output')
+    expect(input.value).toBe('1')
+  })
+  it('No deberia permitir colocar varios signos de operaciones seguidos', () => {
+    render(<Calculadora />)
+
+    const one = screen.getByText('1')
+    const sum = screen.getByText('+')
+    fireEvent.click(one)
+    fireEvent.click(sum)
+    fireEvent.click(sum)
+    const input = screen.getByRole('output')
+    expect(input.value).toBe('1+')
+  })
+  it('Deberia poder hacer otro calculo con el resultado de una operacion', () => {
+    render(<Calculadora />)
+
+    const one = screen.getByText('1')
+    const sum = screen.getByText('+')
+    const equal = screen.getByText('=')
+    const input = screen.getByRole('output')
+    fireEvent.click(one)
+    fireEvent.click(sum)
+    fireEvent.click(one)
+    fireEvent.click(equal)
+    fireEvent.click(sum)
+    fireEvent.click(one)
+    expect(input.value).toBe('2+1')
   })
 })

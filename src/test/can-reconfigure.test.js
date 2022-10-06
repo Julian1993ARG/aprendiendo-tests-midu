@@ -23,7 +23,7 @@ function canconfigure (from, to) {
 
   return true
 }
-describe('canReconfig', () => {
+describe.skip('canReconfig', () => {
   it('El primer parametro debe ser una string', () => {
     expect(() => canconfigure(2)).toThrow('debe ser una string')
   })

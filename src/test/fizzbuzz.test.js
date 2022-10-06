@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import fizzbuzz from '../fizzbuzz'
 
-describe('Fizzbuzz', () => {
+describe.skip('Fizzbuzz', () => {
   it('deberia ser una funcion', () => {
     expect(typeof fizzbuzz).toBe('function')
   })
