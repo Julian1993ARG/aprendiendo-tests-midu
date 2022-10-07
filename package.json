@@ -13,11 +13,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@vitejs/plugin-react": "^2.1.0",
     "happy-dom": "^7.0.0",
-    "standard": "^17.0.0",
     "nodemon": "^2.0.20",
+    "standard": "^17.0.0",
     "vitest": "^0.23.4"
   },
   "eslintConfig": {
