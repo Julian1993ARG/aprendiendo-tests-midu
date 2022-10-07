@@ -29,7 +29,7 @@ export const Calculadora = () => {
   return (
     <div>
       <h1>Calculadora</h1>
-      <div role='grid'>
+      <div role='grid' onKeyDown={(e) => setValue(e.key)}>
         <input role='output' value={value} readOnly />
         {
           rows.map((row, inx) => (

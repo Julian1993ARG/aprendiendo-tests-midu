@@ -135,4 +135,33 @@ describe('Test nivel medio', () => {
     fireEvent.click(one)
     expect(input.value).toBe('2+1')
   })
+  it('Deberia renderizar las teclas presionadas en el output solo si son numeros o simbolos', () => {
+    render(<Calculadora />)
+    const input = screen.getByRole('output')
+    fireEvent.focus(input)
+    // fireEvent.change(input, { target: { value: '5' } })
+    fireEvent.keyDown(input, {
+      charCode: 49,
+      code: 'Numpad1',
+      key: '1'
+    })
+    fireEvent.keyDown(input, {
+      charCode: 65,
+      code: 'KeyA',
+      key: 'a'
+    })
+    expect(input.value).toBe('1')
+  })
+  // it('Al presionar enter debe mostrar el resultado', () => {
+  //   render(<Calculadora />)
+  //   const input = screen.getByRole('output')
+  //   fireEvent.focus(input)
+  //   // fireEvent.change(input, { target: { value: '5' } })
+  //   fireEvent.keyDown(input, {
+  //     charCode: 49,
+  //     code: 'Numpad1',
+  //     key: '1'
+  //   })
+  //   expect(input.value).toBe('1')
+  // })
 })
