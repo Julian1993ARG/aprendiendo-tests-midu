@@ -145,14 +145,11 @@ describe('Test nivel medio', () => {
       code: 'Numpad1',
       key: '1'
     })
-<<<<<<< HEAD
     fireEvent.keyDown(input, {
       charCode: 65,
       code: 'KeyA',
       key: 'a'
     })
-=======
->>>>>>> 39641960b00eb67fec71bccd0ed5e294654f522b
     expect(input.value).toBe('1')
   })
   // it('Al presionar enter debe mostrar el resultado', () => {
@@ -167,4 +164,6 @@ describe('Test nivel medio', () => {
   //   })
   //   expect(input.value).toBe('1')
   // })
+  // probando git amend
+  // intento de amend
 })
