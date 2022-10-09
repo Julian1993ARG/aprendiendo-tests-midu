@@ -29,6 +29,7 @@ export const Calculadora = () => {
   }
   const onKeyDown = e => {
     e.key === 'Enter' && result(value)
+    e.key === 'Backspace' && deleteLast()
     !isNaN(parseInt(e.key)) && addOutputNumber(e.key)
 
     const simbol = operatios.find(operator => operator === e.key)

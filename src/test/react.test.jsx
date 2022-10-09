@@ -11,10 +11,9 @@ describe('Calculadora', () => {
   beforeEach(() => { render(<Calculadora />) })
   afterEach(cleanup)// Cleanup cierra el render despues de cada test sino generaria una cola de renders
   it('Deberia renderizar el componente', () => {
-
   })
   it('deberia tener un titulo Calculadora', () => {
-    screen.getByText('Calculadora')
+    screen.getByText(/Calculadora/i)
   })
   it('Deberia renderizar los numeros del 0 al 9', () => {
     numbers.forEach(number => screen.getByText(number))
