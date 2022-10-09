@@ -14,7 +14,6 @@ export const Calculadora = () => {
   const [value, setValue] = useState('')
 
   const addOutputNumber = op => {
-    console.log(op)
     setValue(value.toString().concat(op))
   }
   const addOutputOperation = op => {
@@ -36,9 +35,7 @@ export const Calculadora = () => {
     simbol && addOutputOperation(e.key)
   }
   const deleteLast = () => {
-    console.log('Aqui2')
     if (value.length) {
-      console.log('Aqui')
       setValue(value.substring(0, value.length - 1))
     }
   }
