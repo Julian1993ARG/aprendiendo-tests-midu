@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { Calculadora } from '../Calculadora'
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-const operatios = ['-', '+', '/', '*']// Change these icons if you want to use another one
+const operatios = ['+', '-', '/', '*']// Change these icons if you want to use another one
 
 const equalSign = '='// Change this icon if you want to use another one
 
@@ -63,7 +63,7 @@ describe('<Calculadora/>', () => {
   })
   it('You should delete the last number by pressing ←', () => {
     const one = screen.getByText('1')
-    const sum = screen.getByText('+')
+    const sum = screen.getByText(operatios[0])
     const del = screen.getByText('←')
     const input = screen.getByRole('output')
     fireEvent.click(one)
@@ -74,7 +74,7 @@ describe('<Calculadora/>', () => {
   it('It should return the result of the operation', () => {
     const one = screen.getByText('1')
     fireEvent.click(one)
-    const sum = screen.getByText('+')
+    const sum = screen.getByText(operatios[0])
     fireEvent.click(sum)
     fireEvent.click(one)// 1 + 1
     const equal = screen.getByText(equalSign)
@@ -89,7 +89,7 @@ describe('<Calculadora N2>', () => {
   afterEach(cleanup)
   it('It should not allow to get the result if the operation is wrong "1+ || 1*5+"', () => {
     const one = screen.getByText('1')
-    const sum = screen.getByText('+')
+    const sum = screen.getByText(operatios[0])
     const resu = screen.getByText('=')
     const input = screen.getByRole('output')
     fireEvent.click(one)
@@ -99,7 +99,7 @@ describe('<Calculadora N2>', () => {
   })
   it('It should not allow placing a sign if there is no number', () => {
     const one = screen.getByText('1')
-    const sum = screen.getByText('+')
+    const sum = screen.getByText(operatios[0])
     fireEvent.click(sum)
     fireEvent.click(one)
     const input = screen.getByRole('output')
@@ -107,7 +107,7 @@ describe('<Calculadora N2>', () => {
   })
   it('It should not allow placing multiple trade signs in a row', () => {
     const one = screen.getByText('1')
-    const sum = screen.getByText('+')
+    const sum = screen.getByText(operatios[0])
     fireEvent.click(one)
     fireEvent.click(sum)
     fireEvent.click(sum)
@@ -116,7 +116,7 @@ describe('<Calculadora N2>', () => {
   })
   it('I should be able to do another operation with the result', () => {
     const one = screen.getByText('1')
-    const sum = screen.getByText('+')
+    const sum = screen.getByText(operatios[0])
     const equal = screen.getByText('=')
     const input = screen.getByRole('output')
     fireEvent.click(one)
@@ -179,7 +179,7 @@ describe('<Calculadora N2>', () => {
   })
   it('Pressing Enter should show the result', () => {
     const one = screen.getByText('1')
-    const add = screen.getByText('+')
+    const add = screen.getByText(operatios[0])
     fireEvent.click(one)
     fireEvent.click(add)
     fireEvent.click(one)
